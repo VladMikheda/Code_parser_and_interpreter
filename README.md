@@ -1,9 +1,10 @@
-# Parcer a interpret kódu IPPcode22
+# Parser and Interpreter for IPPcode22
+
 
 ## Parser
-Převádí kód napsaný v jazyce IPPcode22 do XML formatu. Kód se načítá ze standardního vstupu.
+Converts code written in IPPcode22 language into XML format. The code is read from standard input.
 
-### Příklady spuštění 
+### Execution Examples 
 ```
 php8.1 parse.php
 ```
@@ -16,59 +17,39 @@ pro zobrazeni informace
 php8.1 parse.php --help 
 ```
 
-## Interpret
-Interpretuje kód převedeny do XML formátu a generuje vystup.
+## Interpreter
+Interprets the code converted into XML format and generates output.
 
 
-### Parametry
-+ --help pro zobrazení informací  
-+ --source=file vstupní soubor s XML reprezentací zdrojového kódu  
-+ --input=file soubor se vstupy pro samotnou interpretaci zadaného zdrojového kódu.
+### Parameters
++ --help: Displays information
++ --source=file: Specifies the input file with the XML representation of the source code
++ --input=file: Specifies the file with inputs for the interpretation of the source code.
 
-Alespoň jeden z parametrů (--source nebo --input) musí být vždy zadán. Pokud jeden z nich
-chybí, jsou chybějící data načtěna ze standardního vstupu.
-### Příklady spuštění 
+At least one of the parameters (--source or --input) must always be provided. If one of them is missing, the missing data is read from standard input.
+### Execution Examples
 ```
-python interpret.py --source=kode.xml --input=vystup.out
+python interpret.py --source=code.xml --input=output.out
 ```
 
-## Test
-Skript je určen pro testování parseru a interpretu, skript generuje výstup v HTML formátu. 
+## Testing
+The script is designed for testing the parser and interpreter, and it generates output in HTML format.    
+To run tests you need jexam.
 
-### Parametry 
-+ --help pro zobrazení informací  
-+ --directory=path testy se budou hledat v zadaném adresáři (chybí-li tento parametr, skript
-prochází aktuálním adresářem )  
-+ --recursive testy se budou hledat nejen v zadaném adresáři, ale i rekurzivně ve všech jeho
-podadresářích    
-+ --parse-script=file soubor se skriptem v PHP 8.1 pro analýzu zdrojového kódu v IPPcode22 (chybí-li tento parametr, implicitní hodnotou je parse.php uložený v aktuálním adresáři)   
-+ --int-script=file soubor se skriptem v Python 3.8 pro interpret XML reprezentace kódu
-v IPPcode22 (chybí-li tento parametr, implicitní hodnotou je interpret.py uložený v aktuálním adresáři)   
-+ --parse-only bude testován pouze skript pro analýzu zdrojového kódu v IPPcode22 (tento
-parametr se nesmí kombinovat s parametry --int-only a --int-script), výstup s referenčním
-výstupem (soubor s příponou out).   
-+ --int-only bude testován pouze skript pro interpret XML reprezentace kódu v IPPcode22 (tento parametr se nesmí kombinovat s parametry --parse-only, --parse-script
-a --jexampath). Vstupní program je reprezentován pomocí XML bude v souboru s příponou
-src.   
-+ --jexampath=path cesta k adresáři obsahující soubor jexamxml.jar s JAR balíčkem s nástrojem A7Soft JExamXML a soubor s konfigurací jménem options. Je-li parametr vynechán,
-uvažuje se implicitní umístění /pub/courses/ipp/jexamxml/ na serveru Merlin, kde bude
-test.php hodnocen. Koncové lomítko v path je případně nutno doplnit.   
-+ --noclean během činnosti test.php nebudou mazány pomocné soubory s mezivýsledky, tj.
-skript ponechá soubory, které vznikají při práci testovaných skriptů (např. soubor s výsledným
-XML po spuštění parse.php atd.).
+### Parameters 
++ --help: Displays information
++ --directory=path: Tests will be searched for in the specified directory (if this parameter is missing, the script searches in the current directory) 
++ --recursive: Tests will be searched for not only in the specified directory but also recursively in all its subdirectories
++ --parse-script=file: Specifies the PHP 8.1 script file for parsing the source code in IPPcode22 (if this parameter is missing, the default value is parse.php stored in the current directory) 
++ ---int-script=file: Specifies the Python 3.8 script file for interpreting the XML representation of the code in IPPcode22 (if this parameter is missing, the default value is interpret.py stored in the current directory)
++ --parse-only: Only the script for parsing the source code in IPPcode22 will be tested (this parameter cannot be combined with --int-only and --int-script parameters), with the output compared to the reference output (file with the out extension)  
++ --int-only: Only the script for interpreting the XML representation of the code in IPPcode22 will be tested (this parameter cannot be combined with --parse-only, --parse-script, and --jexampath parameters). The input program is represented using XML and will be stored in a file with the src extension
++ --jexampath=path: Specifies the path to the directory containing the jexamxml.jar file with the JAR package containing the A7Soft JExamXML tool and a configuration file named options. If this parameter is omitted, the default location /pub/courses/ipp/jexamxml/ on the Merlin server will be considered, where test.php will be evaluated. A trailing slash in the path may need to be added if necessary 
++ ---noclean: During the operation of test.php, auxiliary files with intermediate results will not be deleted, meaning the script will leave files created during the operation of tested scripts (e.g., the file with the resulting XML after running parse.php, etc.)
 
-### Příklady spuštění 
+### Execution Examples
 ```
-# spuštění pro testováni dvou skript
-# s zachováním mezivýsledků
+# Execution for testing two scripts
+# with preservation of intermediate results
 php8.1 directory=./tests --recursive  --jexampath=./jexampath --noclean
 ```
-
-
-## Zadaní 
-Navrhněte, implementujte, dokumentujte a testujte sadu skriptů pro interpretaci nestrukturovaného
-imperativního jazyka IPPcode22. K implementaci vytvořte odpovídající stručnou programovou dokumentaci. Projekt se skládá ze dvou úloh a je individuální.
-První úloha se skládá ze skriptu parse.php v jazyce PHP 8.1 a dokumentace
-k tomuto skriptu. Druhá úloha se skládá ze skriptu interpret.py v jazyce Python
-3.8, testovacího skriptu test.php v jazyce PHP 8.1 a dokumentace těchto
-dvou skript.
